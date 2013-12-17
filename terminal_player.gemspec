@@ -3,7 +3,7 @@ Gem::Specification.new do |gem|
   gem.email = ['shane@devshane.com']
   gem.description = 'A terminal-based player for di.fm and somafm.com'
   gem.summary = 'A terminal-based player for di.fm and somafm.com'
-  gem.homepage = 'http://rubygems.org/gems/terminal-player'
+  gem.homepage = 'https://github.com/devshane/terminal-player'
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
