@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'terminal_player'
+
+options = {premium_id: '', cache: 512, cache_min: 30, play_history_path: ''}
+optparser = OptionParser.new do |o|
+  o.banner = "Usage: terminal_player.rb [options] site channel"
+  o.separator ""
+  o.separator "The `site` parameter can be one of 'di' or 'soma'."
+  o.separator "The `channel` parameter must be a valid channel on `site`."
+  o.separator ""
+
+  o.on('-p PREMIUM ID', '--premium-id PREMIUM_ID', 'Set your DI.fm premium ID') do |p|
+    options[:premium_id] = p
+  end
+  o.on('-c CACHE_SIZE', '--cache CACHE_SIZE', 'Set the cache size (KB)') do |c|
+    options[:cache] = c
+  end
+  o.on('-m CACHE_MIN', '--cache-min CACHE_MIN', 'Set the minimum cache threshold (percent)') do |m|
+    options[:cache_min] = m
+  end
+  o.on('-h', '--help', 'Display this message') { puts o; exit }
+
+  o.on('--play-history-path PATH', 'Log the play history to PATH') do |ph|
+    options[:play_history_path] = ph
+  end
+
+  o.parse!
+end
+
+if ARGV[0] == 'di'
+  if options[:premium_id].empty?
+    options[:url] = "http://listen.di.fm/public3/#{ARGV[1]}.pls"
+  else
+    options[:url] = "http://listen.di.fm/premium_high/#{ARGV[1]}.pls?#{options[:premium_id]}"
+  end
+elsif ARGV[0] == 'soma'
+  options[:url] = "http://somafm.com/#{ARGV[1]}.pls"
+else
+  puts optparser
+  puts
+  exit
+end
+
+Signal.trap("INT") do |sig|
+  puts Signal.signame(sig)
+  exit
+end
+
+tp = TerminalPlayer.new(options)
+tp.play
+
