@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.homepage = 'https://github.com/devshane/terminal-player'
 
   gem.files         = `git ls-files`.split($\)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.executables   = ['terminal_player']
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
 
   gem.name = 'terminal-player'
