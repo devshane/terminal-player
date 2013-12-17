@@ -24,7 +24,6 @@ class Site
                            cache_min: options[:cache_min],
                            url: options[:url]})
     PlayerMessageObserver.new(self, @player)
-    # TODO add a song logger observer
   end
 
   def play
