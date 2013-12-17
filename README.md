@@ -1,6 +1,6 @@
 # Terminal Player
 
-A bare-bones terminal-based player for DI.fm and somafm.com.
+Terminal player is a bare-bones, terminal-based player for DI.fm and somafm.com. It's a thin wrapper around `mplayer` and it outputs a single line of text: the current song. That's it. A two-line terminal is plenty of room.
 
 ## Installation
 ```
@@ -37,6 +37,20 @@ $ terminal_player soma secretagent130
 
 # Soma Groove Salad, log the song history to the desktop in a folder called played_songs
 $ terminal_player --play-history-path ~/Desktop/played_songs soma groovesalad
+```
+
+## Keybinds
+
+Spotify "integration":
+```
+s       - Launch a browser, search google for site:spotify.com and the track/artist name
+```
+
+`mplayer` control:
+```
+9       - Lower volume
+0       - Raise volume
+<space> - Pause
 ```
 
 ## Play logs
