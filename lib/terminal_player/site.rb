@@ -54,6 +54,6 @@ class PlayerMessageObserver < Site::Observer
   end
 
   def write(message)
-    puts "#{time.strftime("%H:%M:%S")} [#{@site.name}] #{message}"
+    puts "#{Time.now.strftime("%H:%M:%S")} [#{@site.name}] #{message}"
   end
 end
