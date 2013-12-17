@@ -3,7 +3,7 @@ class Site
 
   attr_accessor :songs, :player
 
-  attr_reader :name, :current_channel
+  attr_reader :name, :current_channel, :channels
 
   def initialize(options, name)
     @name = name

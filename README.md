@@ -39,7 +39,41 @@ $ terminal_player soma secretagent130
 $ terminal_player --play-history-path ~/Desktop/played_songs soma groovesalad
 ```
 
+You can get a channel list if you use `channels` as the channel argument:
+```
+$ terminal_player di channels
+
+ambient             drumandbass         minimal
+bigroomhouse        dubstep             moombahton
+breaks              eclectronica        oldschoolacid
+chillhop            electro             progressive
+chillout            electronicpioneers  progressivepsy
+chilloutdreams      epictrance          psychill
+chillstep           eurodance           russianclubhits
+chiptunes           funkyhouse          sankeys
+classiceurodance    futuresynthpop      scousehouse
+classiceurodisco    gabber              soulfulhouse
+classictechno       glitchhop           spacemusic
+classictrance       goapsy              techhouse
+classicvocaltrance  handsup             techno
+club                hardcore            trance
+clubdubstep         harddance           trap
+cosmicdowntempo     hardstyle           tribalhouse
+darkdnb             hardtechno          ukgarage
+deephouse           house               umfradio
+deepnudisco         latinhouse          vocalchillout
+deeptech            liquiddnb           vocallounge
+discohouse          liquiddubstep       vocaltrance
+djmixes             lounge
+downtempolounge     mainstage
+```
+
 ## Keybinds
+
+Channels:
+```
+c       - Display a channel list
+```
 
 Spotify "integration":
 ```

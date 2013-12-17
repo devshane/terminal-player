@@ -1,4 +1,5 @@
 require 'observer'
+require 'open-uri'
 
 require 'terminal_player/site'
 require 'terminal_player/mplayer'
@@ -16,6 +17,13 @@ class TerminalPlayer
     else
       fail "no url"
     end
+
+    if @options[:url]['channels.pls']
+      list_channels
+      puts "\n\n"
+      exit
+    end
+
     @site.add_observer(self)
   end
 
@@ -29,8 +37,12 @@ class TerminalPlayer
         ensure
           `stty #{state}`
         end
+
         ch = str.chr
         case ch
+        when 'c'
+          list_channels
+          update(Time.now, @site.songs)
         when 's'
           google @site.songs.last
         when '9', '0' # volume
@@ -57,6 +69,17 @@ class TerminalPlayer
     print "\n#{s}\r"
     unless @options[:play_history_path].empty?
       PlayHistory.write @options[:play_history_path], s
+    end
+  end
+
+  def list_channels
+    puts "\n\n"
+    channels = @site.get_channels
+    chans = channels.map { |c| c[:name] }.join("\n")
+    if `which column`.empty?
+      puts chans
+    else
+      puts `echo "#{chans}" | column`
     end
   end
 end
