@@ -2,6 +2,8 @@
 
 Terminal player is a bare-bones, terminal-based player for DI.fm and somafm.com with some Spotify integration. It's a thin wrapper around `mplayer` and it outputs a single line of text: the current song. That's it. A two-line terminal is plenty of room.
 
+Pull requests are encouraged.
+
 ## Spotify Integration
 
 You can search Spotify or Google for the currently playing track by pressing `s`. See the usage and keybind sections for more.
@@ -28,6 +30,9 @@ The `channel` parameter must be a valid channel on `site`.
     -h, --help                       Display this message
         --play-history-path PATH     Log the play history to PATH
 ```
+
+Enabling `-s` or `--spotify-search` requires that you have the Spotify client installed. The option
+just means terminal-player will try to `open` Spotify URIs. This probably only works on OS X.
 
 Examples:
 ```
