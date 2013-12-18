@@ -1,6 +1,12 @@
 # Terminal Player
 
-Terminal player is a bare-bones, terminal-based player for DI.fm and somafm.com. It's a thin wrapper around `mplayer` and it outputs a single line of text: the current song. That's it. A two-line terminal is plenty of room.
+Terminal player is a bare-bones, terminal-based player for DI.fm and somafm.com with some Spotify integration. It's a thin wrapper around `mplayer` and it outputs a single line of text: the current song. That's it. A two-line terminal is plenty of room.
+
+Pull requests are encouraged.
+
+## Spotify Integration
+
+You can search Spotify or Google for the currently playing track by pressing `s`. See the usage and keybind sections for more.
 
 ## Installation
 ```
@@ -19,12 +25,16 @@ The `site` parameter can be one of 'di', 'soma', or 'spotify'.
 When using di or soma, the channel parameter should be a valid channel.
 When using spotify, the channel parameter should be a Spotify URI.
 
+    -s, --spotify-search             Enable spotify URI searches
     -p, --premium-id PREMIUM_ID      Set your DI.fm premium ID
     -c, --cache CACHE_SIZE           Set the cache size (KB)
     -m, --cache-min CACHE_MIN        Set the minimum cache threshold (percent)
     -h, --help                       Display this message
         --play-history-path PATH     Log the play history to PATH
 ```
+
+Enabling `-s` or `--spotify-search` requires that you have the Spotify client installed. The option
+just means terminal-player will try to `open` Spotify URIs. This probably only works on OS X.
 
 Examples:
 ```
@@ -34,8 +44,8 @@ $ terminal_player --premium-id abc123 di breaks
 # DI public breaks channel
 $ terminal_player di breaks
 
-# Soma Secret Agent
-$ terminal_player soma secretagent130
+# Soma Secret Agent, enable spotify URI searches
+$ terminal_player -s soma secretagent130
 
 # Soma Groove Salad, log the song history to the desktop in a folder called played_songs
 $ terminal_player --play-history-path ~/Desktop/played_songs soma groovesalad
@@ -75,22 +85,16 @@ downtempolounge     mainstage
 
 ## Keybinds
 
-Channels:
 ```
 c       - Display a channel list
-```
-
-Spotify "integration":
-```
-s       - Launch a browser, search google for site:spotify.com and the track/artist name
-```
-
-`mplayer` control:
-```
+s       - Launch the spotify player for the track/artist name
+S       - Launch a google search for the track/artist name
 9       - Lower volume
 0       - Raise volume
 <space> - Pause
 ```
+
+If you didn't specify `--spotify-search` on the command line, `s` will fall back to a Google search.
 
 ## Play logs
 

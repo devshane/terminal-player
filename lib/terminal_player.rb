@@ -50,8 +50,8 @@ class TerminalPlayer
           @site.player.next if @site.is_spotify
         when 's'
           if @options[:spotify_search]
-            s = @site.songs.last.gsub(/ /, '+')
-            `open spotify:search:#{s}`
+            s = cleanup(@site.songs.last)
+            `open "spotify:search:#{s}"`
           end
         when 'S'
           google @site.songs.last
@@ -66,7 +66,7 @@ class TerminalPlayer
   end
 
   def google(s)
-    `open "https://www.google.com/search?safe=off&q=site:spotify.com+#{s}"`
+    `open "https://www.google.com/search?safe=off&q=#{s}"`
   end
 
   def play
@@ -91,5 +91,12 @@ class TerminalPlayer
     else
       puts `echo "#{chans}" | column`
     end
+  end
+
+  private
+
+  def cleanup(song)
+    song.gsub(/Feat\./, '')
+        .gsub(/ /, '+')
   end
 end
