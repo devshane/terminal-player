@@ -1,4 +1,4 @@
-require 'terminal_player/spotiphy_player'
+require 'terminal_player/spotiphy/spotiphy_player'
 
 class Spotiphy < Site
   def initialize(options)

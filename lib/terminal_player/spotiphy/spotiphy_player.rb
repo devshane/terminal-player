@@ -55,7 +55,8 @@ class SpotiphyPlayer
 
   def play_track(track)
     wait_for_track_to_load track
-    notify "SPOTTY #{Spotify.track_name(track)}"
+    artist = Spotify.track_artist(track, 0)
+    notify "SPOTTY #{Spotify.track_name(track)} - #{Spotify.artist_name(artist)}"
     begin
       play_track_raw track
       wait_for_track_to_end
