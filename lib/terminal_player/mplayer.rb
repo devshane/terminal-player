@@ -7,6 +7,8 @@ class Mplayer
   end
 
   def play
+    return if @options[:stub] # HACK
+
     @player_thread = Thread.new do
       player = "mplayer -quiet -cache #{@options[:cache]} " \
                "-cache-min #{@options[:cache_min]} " \

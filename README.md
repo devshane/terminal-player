@@ -14,8 +14,10 @@ $ gem install ./terminal-player-0.0.1.gem
 ```
 Usage: terminal_player.rb [options] site channel
 
-The `site` parameter can be one of 'di' or 'soma'.
-The `channel` parameter must be a valid channel on `site`.
+The `site` parameter can be one of 'di', 'soma', or 'spotify'.
+
+When using di or soma, the channel parameter should be a valid channel.
+When using spotify, the channel parameter should be a Spotify URI.
 
     -p, --premium-id PREMIUM_ID      Set your DI.fm premium ID
     -c, --cache CACHE_SIZE           Set the cache size (KB)
@@ -37,6 +39,9 @@ $ terminal_player soma secretagent130
 
 # Soma Groove Salad, log the song history to the desktop in a folder called played_songs
 $ terminal_player --play-history-path ~/Desktop/played_songs soma groovesalad
+
+# Spotify bitchin playlist
+$ terminal_player spotify spotify:user:whoknows:playlist:0AykzuRPoExXhCRlazt14O
 ```
 
 You can get a channel list if you use `channels` as the channel argument:

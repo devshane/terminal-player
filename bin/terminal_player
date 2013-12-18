@@ -36,6 +36,8 @@ if ARGV[0] == 'di'
   end
 elsif ARGV[0] == 'soma'
   options[:url] = "http://somafm.com/#{ARGV[1]}.pls"
+elsif ARGV[0]['spot']
+  options[:url] = ARGV[1]
 else
   puts optparser
   puts
