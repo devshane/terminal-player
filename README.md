@@ -87,11 +87,12 @@ downtempolounge     mainstage
 
 ```
 c       - Display a channel list
-s       - Launch the spotify player for the track/artist name
-S       - Launch a google search for the track/artist name
-9       - Lower volume
-0       - Raise volume
-<space> - Pause
+n       - Change to next track (Spotify mode)
+s       - Launch the Spotify player for the track/artist name
+S       - Launch a Google search for the track/artist name
+9       - Lower volume (not in Spotify mode)
+0       - Raise volume (not in Spotify mode)
+<space> - Pause (not in Spotify mode)
 ```
 
 If you didn't specify `--spotify-search` on the command line, `s` will fall back to a Google search.
