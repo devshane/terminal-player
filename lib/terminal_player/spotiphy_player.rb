@@ -55,9 +55,7 @@ class SpotiphyPlayer
 
   def play_track(track)
     wait_for_track_to_load track
-
-    notify "SPOTTY #{Spotify.track_name(track).chomp}"
-
+    notify "SPOTTY #{Spotify.track_name(track)}"
     begin
       play_track_raw track
       wait_for_track_to_end
