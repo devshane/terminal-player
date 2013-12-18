@@ -44,6 +44,11 @@ class TerminalPlayer
           list_channels
           update(Time.now, @site.songs)
         when 's'
+          if @options[:spotify_search]
+            s = cleanup(@site.songs.last)
+            `open "spotify:search:#{s}"`
+          end
+        when 'S'
           google @site.songs.last
         when '9', '0' # volume
           @site.player.write ch
@@ -81,5 +86,12 @@ class TerminalPlayer
     else
       puts `echo "#{chans}" | column`
     end
+  end
+
+  private
+
+  def cleanup(song)
+    song.gsub(/Feat\./, '')
+        .gsub(/ /, '+')
   end
 end
