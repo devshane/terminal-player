@@ -61,7 +61,7 @@ class TerminalPlayer
   end
 
   def google(s)
-    `open "https://www.google.com/search?safe=off&q=site:spotify.com+#{s}"`
+    `open "https://www.google.com/search?safe=off&q=#{s}"`
   end
 
   def play
