@@ -4,8 +4,8 @@ require 'open-uri'
 require 'terminal_player/site'
 require 'terminal_player/mplayer'
 require 'terminal_player/play_history'
-require 'terminal_player/di/di'
-require 'terminal_player/soma/soma'
+require 'terminal_player/di'
+require 'terminal_player/soma'
 
 class TerminalPlayer
   def initialize(options)
