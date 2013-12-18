@@ -69,12 +69,12 @@ class SpotiphyPlayer
     plist = Spotify.playlist_create(@session, link)
     poll(@session) { Spotify.playlist_is_loaded(plist) }
     num_tracks = Spotify.playlist_num_tracks(plist)
+# TODO this should reset channel
 #    puts "\nPlaying #{Spotify.playlist_name(plist)}, #{num_tracks} tracks, " +
 #         "#{Spotify.playlist_num_subscribers(plist)} subscribers"
     for i in 0..num_tracks - 1
       track = Spotify.playlist_track(plist, i)
       play_track track
-      puts ""
     end
   end
 
@@ -84,50 +84,18 @@ class SpotiphyPlayer
     poll(@session) { Spotify.albumbrowse_is_loaded(browser) }
 #    album = Spotify.albumbrowse_album(browser)
     num_tracks = Spotify.albumbrowse_num_tracks(browser)
+# TODO this should reset channel
 #    puts "\nPlaying #{Spotify.album_name(album)} (#{Spotify.album_year(album)}), #{num_tracks} tracks"
     for i in 0..num_tracks - 1
       track = Spotify.albumbrowse_track(browser, i)
       play_track track
-      puts ""
     end
   end
 
   def play_track_raw(track)
-    #print_track track
-
     Spotify.try(:session_player_play, @session, false)
     Spotify.try(:session_player_load, @session, track)
     Spotify.try(:session_player_play, @session, true)
-  end
-
-  def print_track(track)
-    track_num = Spotify.track_index(track)
-    track_name = Spotify.track_name(track)
-    popularity = Spotify.track_popularity(track)
-    num_artists = Spotify.track_num_artists(track)
-    artists = []
-    for i in 0..num_artists - 1
-      artists << Spotify.track_artist(track, i)
-    end
-    album = Spotify.track_album(track)
-    begin
-      album_name = Spotify.album_name(album)
-      album_year = Spotify.album_year(album)
-    rescue => e
-      album_name = "?"
-      album_year = "?"
-      puts "error getting album info: #{e}"
-    end
-
-    duration = Spotify.track_duration(track)
-    dmins = duration / 60000
-    dsecs = (duration / 1000) % 60
-
-    names = artists.map {|a| Spotify.artist_name(a)}
-    puts ""
-    puts "Artists: #{names.join(', ')}"
-    puts "Album  : #{album_name} (#{album_year}), track ##{track_num}"
-    puts "Track  : #{track_name} [#{dmins}:#{'%02d' % dsecs}] #{popularity}% popularity"
   end
 
   def wait_for_track_to_end
@@ -163,7 +131,7 @@ class SpotiphyPlayer
   end
 
   def setup_session_callbacks
-    # these must remain global
+    # these must remain global. i think.
     $session_callbacks = {
       log_message: proc do |session, message|
         #$logger.info("session (log message)") { message }
