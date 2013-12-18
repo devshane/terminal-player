@@ -7,7 +7,7 @@ class Spotiphy < Site
 
   def get_channels
     # TODO maybe playlists?
-    @channels = []
+    @channels = [{id: 0, name: "There is no channel support for spotify yet."}]
   end
 end
 
