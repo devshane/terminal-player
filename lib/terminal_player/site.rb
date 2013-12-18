@@ -49,6 +49,7 @@ class Site
 
   def spotify_type(uri)
     return 'playlist' if uri[':playlist:']
+    return 'album' if uri[':album:']
     return uri
   end
 end
