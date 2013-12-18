@@ -49,9 +49,12 @@ class TerminalPlayer
         when 'n'
           @site.player.next if @site.is_spotify
         when 's'
+          if @site.is_spotify
+            s = @site.songs.last.gsub(/ /, '+')
+            `open spotify:search:#{s}`
+          end
+        when 'S'
           google @site.songs.last
-#        when 'S'
-#          Spotiphy.search(@site.songs.last)
         when '9', '0' # volume
           @site.player.write ch
         when ' ' # pause/resume

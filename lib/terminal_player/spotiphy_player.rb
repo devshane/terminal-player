@@ -72,7 +72,7 @@ class SpotiphyPlayer
 # TODO this should reset channel
 #    puts "\nPlaying #{Spotify.playlist_name(plist)}, #{num_tracks} tracks, " +
 #         "#{Spotify.playlist_num_subscribers(plist)} subscribers"
-    for i in 0..num_tracks - 1
+    0.upto(num_tracks - 1) do |i|
       track = Spotify.playlist_track(plist, i)
       play_track track
     end
@@ -86,7 +86,7 @@ class SpotiphyPlayer
     num_tracks = Spotify.albumbrowse_num_tracks(browser)
 # TODO this should reset channel
 #    puts "\nPlaying #{Spotify.album_name(album)} (#{Spotify.album_year(album)}), #{num_tracks} tracks"
-    for i in 0..num_tracks - 1
+    0.upto(num_tracks - 1) do |i|
       track = Spotify.albumbrowse_track(browser, i)
       play_track track
     end
@@ -109,8 +109,13 @@ class SpotiphyPlayer
 
   private
 
+  def notify(message)
+    changed
+    notify_observers(Time.now, message)
+  end
+
   def login(u, p)
-    Spotify.session_login(@session, u, p, false, nil) #$blob)
+    Spotify.session_login(@session, u, p, false, nil)
     poll(@session) { Spotify.session_connectionstate(@session) == :logged_in }
   end
 
@@ -190,11 +195,6 @@ class SpotiphyPlayer
     ENV.fetch(name) do
       raise "set the #{name} environment variable"
     end
-  end
-
-  def notify(message)
-    changed
-    notify_observers(Time.now, message)
   end
 end
 
