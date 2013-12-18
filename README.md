@@ -1,10 +1,16 @@
 # Terminal Player
 
-Terminal player is a bare-bones, terminal-based player for DI.fm and somafm.com with some Spotify integration. It's a thin wrapper around `mplayer` and it outputs a single line of text: the current song. That's it. A two-line terminal is plenty of room.
+Terminal player is a bare-bones, terminal-based player for DI.fm, somafm.com, and Spotify. It's a thin wrapper around `mplayer` and `libspotify` and it outputs a single line of text: the current song. That's it. A two-line terminal is plenty of room.
 
 Pull requests are encouraged.
 
 ## Spotify Integration
+
+To use Spotify, you must have an account. Set these environment variables to your Spotify deets. In fish:
+```
+set -x SPOTIFY_USERNAME yourusername
+set -x SPOTIFY_PASSWORD yourpassword
+```
 
 You can search Spotify or Google for the currently playing track by pressing `s`. See the usage and keybind sections for more.
 
@@ -52,9 +58,12 @@ $ terminal_player --play-history-path ~/Desktop/played_songs soma groovesalad
 
 # Spotify bitchin playlist
 $ terminal_player spotify spotify:user:whoknows:playlist:0AykzuRPoExXhCRlazt14O
+
+# Spotify track
+$ terminal_player spotify spotify:track:2CTXWl2vo9oLXZaaBhpw2p
 ```
 
-You can get a channel list if you use `channels` as the channel argument:
+You can get a channel list for DI and Soma if you use `channels` as the channel argument:
 ```
 $ terminal_player di channels
 
