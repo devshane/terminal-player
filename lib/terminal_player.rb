@@ -49,7 +49,7 @@ class TerminalPlayer
         when 'n'
           @site.player.next if @site.is_spotify
         when 's'
-          if @site.is_spotify
+          if @options[:spotify_search]
             s = @site.songs.last.gsub(/ /, '+')
             `open spotify:search:#{s}`
           end

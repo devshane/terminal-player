@@ -2,7 +2,14 @@
 require 'optparse'
 require 'terminal_player'
 
-options = {premium_id: '', cache: 512, cache_min: 30, play_history_path: ''}
+options = {
+  premium_id: '',
+  cache: 512,
+  cache_min: 30,
+  play_history_path: '',
+  spotify_search: false
+}
+
 optparser = OptionParser.new do |o|
   o.banner = "Usage: terminal_player.rb [options] site channel"
   o.separator ""
@@ -10,6 +17,9 @@ optparser = OptionParser.new do |o|
   o.separator "The `channel` parameter must be a valid channel on `site`."
   o.separator ""
 
+  o.on('-s', '--spotify-search', 'Enable spotify URI searches') do |s|
+    options[:spotify_search] = true
+  end
   o.on('-p PREMIUM ID', '--premium-id PREMIUM_ID', 'Set your DI.fm premium ID') do |p|
     options[:premium_id] = p
   end
