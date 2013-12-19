@@ -1,5 +1,6 @@
 before_install:
-- sudo apt-get install libopenal1 libopenal-dev libffi-ruby oss-compat
+- sudo apt-get install libopenal1 libopenal-dev
+- sudo apt-get install mpg123-alsa
 rvm:
 - 2.0.0
 env:
