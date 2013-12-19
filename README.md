@@ -21,6 +21,11 @@ You can search Spotify or Google for the currently playing track by pressing `s`
 
 ## Installation
 ```
+$ gem install terminal-player
+```
+
+Or from source:
+```
 $ git clone https://github.com/devshane/terminal-player.git
 $ cd terminal-player
 $ gem build ./terminal_player.gemspec
