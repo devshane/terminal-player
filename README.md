@@ -1,7 +1,5 @@
 # Terminal Player
 
-[![Build Status](https://travis-ci.org/devshane/terminal-player.png)](https://travis-ci.org/devshane/terminal-player)
-
 Terminal player is a bare-bones, terminal-based player for DI.fm, somafm.com, and Spotify. It's a thin wrapper around `mplayer` and `libspotify` and it outputs a single line of text for each song *without* using Curses. That's it. A two-line terminal is plenty of room:
 
 ```
