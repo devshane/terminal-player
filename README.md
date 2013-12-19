@@ -68,7 +68,9 @@ $ terminal_player spotify spotify:user:whoknows:playlist:0AykzuRPoExXhCRlazt14O
 $ terminal_player spotify spotify:track:2CTXWl2vo9oLXZaaBhpw2p
 ```
 
-You can get a channel list for DI and Soma if you use `channels` as the channel argument:
+## Channel lists
+
+For DI and Soma, terminal player can dump a list of channels and then exit if you use `channels` as the channel argument:
 ```
 $ terminal_player di channels
 
@@ -95,6 +97,8 @@ deeptech            liquiddnb           vocallounge
 discohouse          liquiddubstep       vocaltrance
 djmixes             lounge
 downtempolounge     mainstage
+
+$
 ```
 
 ## Keybinds
