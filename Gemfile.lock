@@ -6,10 +6,20 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    diff-lcs (1.2.5)
     ffi (1.9.3)
     libspotify (12.1.51.3)
     plaything (1.1.1)
       ffi (~> 1.1)
+    rake (10.1.0)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.7)
+    rspec-expectations (2.14.4)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.4)
     spotify (12.5.3)
       ffi (~> 1.0, >= 1.0.11)
       libspotify (~> 12.1.51)
@@ -19,5 +29,7 @@ PLATFORMS
 
 DEPENDENCIES
   plaything
+  rake
+  rspec
   spotify
   terminal-player!
