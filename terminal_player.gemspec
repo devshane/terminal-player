@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.executables   = ['terminal_player']
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
 
-  gem.name = 'terminal-player'
+  gem.name = 'terminal_player'
   gem.version = '0.0.4'
   gem.date = '2013-12-15'
   gem.licenses = ['MIT']
