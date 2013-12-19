@@ -97,9 +97,10 @@ class TerminalPlayer
 
   def cleanup(song)
     s = song.gsub(/[Ff]eat\./, '')
-    s.gsub!(/-/, '')
     s.gsub!(/\(.*?\)/, '')
     s.gsub!(/\(.*/, '')
+    s.gsub!(/-/, ' ')
+    s.gsub!(/[^A-Za-z \.]/, '')
 
     s.strip!
 

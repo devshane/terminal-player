@@ -91,6 +91,11 @@ describe TerminalPlayer do
     ab = 'ali baba Feat. the forty theieves'
     output = tp.send(:cleanup, ab)
     output.should == 'ali+baba+the+forty+theieves'
+
+    # Many, but not all, non-word characters
+    ab = "?ali \tbaba , th\ne .forty thei^eves&*"
+    output = tp.send(:cleanup, ab)
+    output.should == 'ali+baba+the+.forty+theieves'
   end
 
   it "removes stuff in parenthesis from song titles" do
