@@ -10,11 +10,13 @@ options = {
   spotify_search: false
 }
 
-optparser = OptionParser.new do |o|
+@optparser = OptionParser.new do |o|
   o.banner = "Usage: terminal_player.rb [options] site channel"
   o.separator ""
-  o.separator "The `site` parameter can be one of 'di' or 'soma'."
-  o.separator "The `channel` parameter must be a valid channel on `site`."
+  o.separator "The `site` parameter can be one of: di, soma, or spotify."
+  o.separator ""
+  o.separator "When `site` is di or soma, the channel parameter should be a valid channel."
+  o.separator "When `site` is spotify, the channel parameter should be a valid Spotify URI."
   o.separator ""
 
   o.on('-s', '--spotify-search', 'Enable spotify URI searches') do |s|
@@ -38,6 +40,16 @@ optparser = OptionParser.new do |o|
   o.parse!
 end
 
+def usage
+  puts @optparser
+  puts
+  exit
+end
+
+if ARGV[0].nil? || ARGV[1].nil?
+  usage
+end
+
 if ARGV[0] == 'di'
   if options[:premium_id].empty?
     options[:url] = "http://listen.di.fm/public3/#{ARGV[1]}.pls"
@@ -49,9 +61,7 @@ elsif ARGV[0] == 'soma'
 elsif ARGV[0]['spot']
   options[:url] = ARGV[1]
 else
-  puts optparser
-  puts
-  exit
+  usage
 end
 
 Signal.trap("INT") do |sig|
