@@ -21,7 +21,7 @@ You can search Spotify or Google for the currently playing track by pressing `s`
 
 ## Installation
 ```
-$ gem install terminal-player
+$ gem install terminal_player
 ```
 
 Or from source:
@@ -29,20 +29,23 @@ Or from source:
 $ git clone https://github.com/devshane/terminal-player.git
 $ cd terminal-player
 $ gem build ./terminal_player.gemspec
-$ gem install ./terminal-player-0.0.3.gem
+$ gem install ./terminal_player-0.0.4.gem
 ```
 
 ## Usage
 ```
 Usage: terminal_player.rb [options] site channel
 
-The `site` parameter can be one of 'di', 'soma', or 'spotify'.
+The `site` parameter can be one of: di, soma, or spotify.
 
-When using di or soma, the channel parameter should be a valid channel.
-When using spotify, the channel parameter should be a Spotify URI.
+When `site` is di or soma, the channel parameter should be a valid channel.
+When `site` is spotify, the channel parameter should be a valid Spotify URI.
+
+Spotify requires two environment variables: SPOTIFY_USERNAME and SPOTIFY_PASSWORD.
+
+DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
 
     -s, --spotify-search             Enable spotify URI searches
-    -p, --premium-id PREMIUM_ID      Set your DI.fm premium ID
     -c, --cache CACHE_SIZE           Set the cache size (KB)
     -m, --cache-min CACHE_MIN        Set the minimum cache threshold (percent)
     -h, --help                       Display this message
@@ -124,7 +127,6 @@ If you didn't specify `--spotify-search` on the command line, `s` will fall back
 
 They're rotated daily. They're formatted like the display is:
 ```
-# Logfile created on 2013-12-16 22:34:19 -0500 by logger.rb/41954
 22:34:19 [soma/secretagent130] Akasha - Mescalin
 22:36:14 [soma/secretagent130] Sunday Combo - Ball Chair
 22:39:14 [soma/secretagent130] Daniele Luppi - The Lost Island (Lp Version)
