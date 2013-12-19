@@ -1,5 +1,5 @@
 before_install:
-  - sudo apt-get install libopenal1
+  - sudo apt-get install libffi-ruby
 
 rvm:
   - "2.0.0"
