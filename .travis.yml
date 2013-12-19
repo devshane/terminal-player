@@ -1,9 +1,2 @@
-before_install:
-- sudo apt-get install libopenal1 libopenal-dev
-- sudo apt-get install mpg123-alsa
 rvm:
 - 2.0.0
-env:
-  global:
-  - secure: NAnWtS3W4Y47syoKn5AaaoOTmg+zdYOrEhmtdKxDnxhHK7TqtBq9x4K9WOSa9FLbURYrV4SgtjuSvlfdhNsFuCBMK47qzzQPWQYiB4H41CE1hXejhiYWIqXlKvY+98izVok4TH5axZ78ZrqeapnFRphlPWbTlSbvHkYDO0itMqg=
-  - secure: BW6PksnCyJK9od8cGeTK2cLRzwRieEFHu+KaVw3TN66dsIemk509g73GoTm8uLdNen56dqhpDasCAksFSKgRKFWABolzwjpohXxHshcUKz4pXkZ5UkPQwqsNGg/Vw2HoJueMESpIhqejlA9PbgpFSdaU0GLutRp1qfc6Xv15Q90=
