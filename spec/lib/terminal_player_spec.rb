@@ -87,8 +87,24 @@ describe TerminalPlayer do
   it "removes common crud in song titles" do
     options = { url: 'http://somafm.com/' }
     tp = TerminalPlayer.new(options)
+    # Feat.
     ab = 'ali baba Feat. the forty theieves'
     output = tp.send(:cleanup, ab)
     output.should == 'ali+baba+the+forty+theieves'
+  end
+
+  it "removes stuff in parenthesis from song titles" do
+    options = { url: 'http://somafm.com/' }
+    tp = TerminalPlayer.new(options)
+
+    # anything in parenthesis
+    ab = 'ali baba (original mix) - forty thieves'
+    output = tp.send(:cleanup, ab)
+    output.should == 'ali+baba+forty+thieves'
+
+    # ... even partially
+    ab = 'ali baba (ori'
+    output = tp.send(:cleanup, ab)
+    output.should == 'ali+baba'
   end
 end

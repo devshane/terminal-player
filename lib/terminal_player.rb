@@ -96,8 +96,15 @@ class TerminalPlayer
   private
 
   def cleanup(song)
-    song.gsub(/[Ff]eat\./, '')
-        .gsub(/ /, '+')
-        .gsub(/\+\+/, '+')
+    s = song.gsub(/[Ff]eat\./, '')
+    s.gsub!(/-/, '')
+    s.gsub!(/\(.*?\)/, '')
+    s.gsub!(/\(.*/, '')
+
+    s.strip!
+
+    s.gsub!(/ /, '+')
+    s.gsub!(/\++/, '+')
+    s
   end
 end
