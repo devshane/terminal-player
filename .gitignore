@@ -20,3 +20,4 @@ doc/
 .DS_Store
 .spotify/*
 spotify_tracefile.txt
+.vagrant/*
