@@ -96,7 +96,8 @@ class TerminalPlayer
   private
 
   def cleanup(song)
-    song.gsub(/Feat\./, '')
+    song.gsub(/[Ff]eat\./, '')
         .gsub(/ /, '+')
+        .gsub(/\+\+/, '+')
   end
 end
