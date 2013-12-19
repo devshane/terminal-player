@@ -45,7 +45,7 @@ When using spotify, the channel parameter should be a Spotify URI.
 ```
 
 Enabling `-s` or `--spotify-search` requires that you have the Spotify client installed. The option
-just means terminal-player will try to `open` Spotify URIs. This probably only works on OS X.
+just means terminal player will try to `open` Spotify URIs. This probably only works on OS X.
 
 Examples:
 ```
