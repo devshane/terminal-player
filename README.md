@@ -58,7 +58,7 @@ just means terminal player will try to `open` Spotify URIs. This probably only w
 Examples:
 ```
 # DI premium member, breaks channel
-$ terminal_player --premium-id abc123 di breaks
+$ set -x DI_FM_PREMIUM_ID abc123; terminal_player di breaks
 
 # DI public breaks channel
 $ terminal_player di breaks
