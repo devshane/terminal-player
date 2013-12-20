@@ -16,7 +16,9 @@ describe TerminalPlayer do
   it "sets up properly for di.fm" do
     options = { url: 'http://www.di.fm/' }
     tp = TerminalPlayer.new(options)
-    tp.instance_variable_get(:@site).class.should be DI
+    s = tp.instance_variable_get(:@site)
+    s.class.should be DI
+    s.instance_variable_get(:@name).should == 'di-lo'
   end
 
   it "sets up properly for somafm.com" do
@@ -58,12 +60,12 @@ describe TerminalPlayer do
 
   it "displays songs" do
     options = {
-      url: 'http://www.di.fm/breaks.pls',
+      url: 'http://www.di.fm/premium_high/breaks.pls?abc123',
       play_history_path: ''
     }
     tp = TerminalPlayer.new(options)
     tp.instance_variable_get(:@site).class.should be DI
-    tp.instance_variable_get(:@site).instance_variable_get(:@name).should == 'di'
+    tp.instance_variable_get(:@site).instance_variable_get(:@name).should == 'di-hi'
     tp.instance_variable_get(:@site).instance_variable_get(:@current_channel).should == 'breaks'
 
     t = Time.now
@@ -72,7 +74,7 @@ describe TerminalPlayer do
       tp.update(t, songs)
     end
     output.should include t.strftime("%H:%M:%S")
-    output.should include '[di/breaks]'
+    output.should include '[di-hi/breaks]'
     output.should include 'three'
   end
 

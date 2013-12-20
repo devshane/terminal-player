@@ -1,6 +1,7 @@
 class DI < Site
   def initialize(options)
-    super(options, "di")
+    p = !options[:url]['premium'].nil?
+    super(options, p ? 'di-hi' : 'di-lo')
   end
 
   def get_channels
