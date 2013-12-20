@@ -78,6 +78,27 @@ describe TerminalPlayer do
     output.should include 'three'
   end
 
+  it "doesn't display duplicate songs" do
+    options = {
+      url: 'http://www.di.fm/premium_high/breaks.pls?abc123',
+      play_history_path: ''
+    }
+    tp = TerminalPlayer.new(options)
+    t = Time.now
+    songs = ['one', 'two', 'three']
+    output = capture_stdout do
+      tp.update(t, songs)
+    end
+    output.scan(/three/).length.should == 1
+
+    # add a dupe
+    songs << 'three'
+    output += capture_stdout do
+      tp.update(t, songs)
+    end
+    output.scan(/three/).length.should == 1
+  end
+
   it "cleans song titles" do
     options = { url: 'http://somafm.com/' }
     tp = TerminalPlayer.new(options)

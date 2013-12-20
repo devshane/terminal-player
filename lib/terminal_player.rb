@@ -10,6 +10,8 @@ require 'terminal_player/spotiphy'
 
 class TerminalPlayer
   def initialize(options)
+    @last_log = ''
+
     @options = options
     if @options[:url]['di.fm']
       @site = DI.new(@options)
@@ -75,10 +77,13 @@ class TerminalPlayer
   end
 
   def update(time, songs)
-    s = "#{time.strftime("%H:%M:%S")} [#{@site.name}/#{@site.current_channel}] #{songs.last}"
-    print "\n#{s}\r"
-    unless @options[:play_history_path].empty?
-      PlayHistory.write @options[:play_history_path], s
+    unless @last_log == songs.last
+      @last_log = songs.last
+      s = "#{time.strftime("%H:%M:%S")} [#{@site.name}/#{@site.current_channel}] #{songs.last}"
+      print "\n#{s}\r"
+      unless @options[:play_history_path].empty?
+        PlayHistory.write @options[:play_history_path], s
+      end
     end
   end
 
