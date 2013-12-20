@@ -65,7 +65,7 @@ else
 end
 
 Signal.trap("INT") do |sig|
-  puts Signal.signame(sig)
+  puts
   exit
 end
 
