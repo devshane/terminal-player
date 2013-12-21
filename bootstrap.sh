@@ -16,15 +16,18 @@ git clone https://github.com/sstephenson/ruby-build.git ~vagrant/.rbenv/plugins/
 
 chown -R vagrant:vagrant ~vagrant
 
-# install a ruby
 echo
-echo "ok, it's up to you to install a ruby:"
-echo "$ rbenv install 1.9.3-p484"
+echo "the box is almost ready to go. execute these commands:"
+echo
 echo "$ rbenv install 2.0.0-p353"
-echo
-echo "then install bundler:"
+echo "$ rbenv global 2.0.0-p353"
 echo "$ gem install bundler"
+echo "$ rbenv rehash"
+echo "$ cd /vagrant"
+echo "$ bundle install"
+echo "$ gem build ./terminal_player.gemspec"
+echo "$ gem install ./terminal_player-0.0.5.gem"
+echo "$ rbenv rehash"
 echo
-
-# gem install bundler
+echo "and you're good to go..."
 
