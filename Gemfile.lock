@@ -1,7 +1,11 @@
 PATH
   remote: .
   specs:
-    terminal-player (0.0.3)
+    terminal_player (0.0.5)
+      plaything (~> 1.1.1)
+      rake (~> 10.1.0)
+      rspec (~> 2.14.1)
+      spotify (~> 12.5.3)
 
 GEM
   remote: https://rubygems.org/
@@ -11,7 +15,7 @@ GEM
     libspotify (12.1.51.3)
     plaything (1.1.1)
       ffi (~> 1.1)
-    rake (10.1.0)
+    rake (10.1.1)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -28,8 +32,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  plaything
-  rake
-  rspec
-  spotify
-  terminal-player!
+  terminal_player!
