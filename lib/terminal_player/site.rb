@@ -1,9 +1,10 @@
+require 'observer'
+
 class Site
   include Observable
 
   attr_accessor :songs, :player
-
-  attr_reader :name, :current_channel, :channels, :is_spotify
+  attr_reader :name, :current_channel, :channels, :is_spotify, :is_di_plus
 
   def initialize(options, name)
     @name = name
@@ -17,6 +18,8 @@ class Site
     if options[:url].nil? || options[:url].empty?
       fail "no :url in the options hash sent to Site"
     end
+
+    @is_di_plus = options[:di_plus]
 
     @is_spotify = !options[:url]['spotify:'].nil?
     if @is_spotify
@@ -63,9 +66,17 @@ class Site::Observer
 end
 
 class PlayerMessageObserver < Site::Observer
+  @channels = []
+
   def update(time, message)
     if message['ICY']
-      @site.songs << message[/StreamTitle='(.*?)'/, 1]
+      begin
+        m = message.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+        song = m[/StreamTitle='(.*?)'/, 1]
+      rescue => e
+        song = "error: #{e}"
+      end
+      @site.songs << song
       @site.song_changed
     elsif message['SPOTTY']
       @site.songs << message.gsub(/SPOTTY /, '')

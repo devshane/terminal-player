@@ -78,8 +78,11 @@ class TerminalPlayer
 
   def update(time, songs)
     unless @last_log == songs.last
-      @last_log = songs.last
-      s = "#{time.strftime("%H:%M:%S")} [#{@site.name}/#{@site.current_channel}] #{songs.last}"
+      @last_log = song = songs.last
+
+      song = "#{song} #{get_di_info}" if @site.is_di_plus
+
+      s = "#{time.strftime("%H:%M:%S")} [#{@site.name}/#{@site.current_channel}] #{song}"
       print "\n#{s}\r"
       unless @options[:play_history_path].empty?
         PlayHistory.write @options[:play_history_path], s
@@ -99,6 +102,37 @@ class TerminalPlayer
   end
 
   private
+
+  def get_di_info
+    chid = 0
+    @channels ||= @site.get_channels
+    @channels.each do |c|
+      if c[:name] == @site.current_channel
+        chid = c[:id].to_i
+        break
+      end
+    end
+    if chid > 0
+      sleep 2 # HACK!
+      songs = @site.get_recently_played_list(chid) if chid > 0
+      s = songs.first
+      song = "#{song} :: #{format_secs(s['duration'])} " \
+      "+#{s['votes']['up']} -#{s['votes']['down']}"
+    end
+  end
+
+  def format_secs(seconds)
+    secs = seconds.abs
+    hours = 0
+    if secs > 3600
+      hours = secs / 3600
+      secs -= 3600 * hours
+    end
+    mins = secs / 60
+    secs = secs % 60
+    h = hours > 0 ? "#{"%d" % hours}:" : ""
+    "#{h}#{"%02d" % mins}:#{"%02d" % secs}"
+  end
 
   def cleanup(song)
     s = song.gsub(/[Ff]eat\./, '')

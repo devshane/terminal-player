@@ -6,7 +6,8 @@ options = {
   cache: 512,
   cache_min: 30,
   play_history_path: '',
-  spotify_search: false
+  spotify_search: false,
+  di_plus: false
 }
 
 @optparser = OptionParser.new do |o|
@@ -35,6 +36,10 @@ options = {
 
   o.on('--play-history-path PATH', 'Log the play history to PATH') do |ph|
     options[:play_history_path] = ph
+  end
+
+  o.on('--di-plus', 'Display song durations and votes') do |dip|
+    options[:di_plus] = true
   end
 
   o.parse!
