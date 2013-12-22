@@ -104,7 +104,11 @@ class TerminalPlayer
           @last_log = song = songs.last
           cols = `tput cols`.to_i
           preamble = "[#{@site.name}/#{@site.current_channel}]"
-          extras = @site.is_di_plus ? get_di_info : time.strftime('%H:%M:%S')
+          if @site.class == DI && @site.is_di_plus
+            extras = get_di_info
+          else
+            extras = time.strftime('%H:%M:%S')
+          end
           while (1 + preamble.length + extras.length + song.length) > cols
             song = song[0..-2]
           end
