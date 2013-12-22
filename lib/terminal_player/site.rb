@@ -4,7 +4,7 @@ class Site
   include Observable
 
   attr_accessor :songs, :player
-  attr_reader :name, :current_channel, :channels, :is_spotify, :is_di_plus
+  attr_reader :name, :current_channel, :channels, :is_spotify, :is_di_plus, :is_mplayer
 
   def initialize(options, name)
     @name = name
@@ -30,8 +30,10 @@ class Site
     end
 
     if @is_spotify
+      @is_mplayer = false
       @player = SpotiphyPlayer.new(options)
     else
+      @is_mplayer = true
       @player = Mplayer.new({cache: options[:cache],
                              cache_min: options[:cache_min],
                              url: options[:url]})

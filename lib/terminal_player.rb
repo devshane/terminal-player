@@ -65,9 +65,9 @@ class TerminalPlayer
         when 'S'
           google @site.songs.last
         when '9', '0' # volume
-          @site.player.write ch
+          @site.player.write ch if @site.is_mplayer?
         when ' ' # pause/resume
-          @site.player.write ch
+          @site.player.write ch if @site.is_mplayer?
         end
         sleep 0.2
       end
@@ -114,7 +114,6 @@ class TerminalPlayer
           end
           spaces = ' ' * (cols - song.length - preamble.length - extras.length - 1)
           song = "#{song}#{spaces}#{extras}"
-          #print "#{is_refresh ? '' : "\n"}#{preamble} #{song}\r"
           print "\n" unless is_refresh
           print "#{preamble} #{song}\r"
           unless force || @options[:play_history_path].empty?
@@ -177,7 +176,8 @@ class TerminalPlayer
             write "giving up: can't get audioaddict info #{retries + 1}x"
             break
           end
-          sleep retries + 1
+          write "sleeping #{(retries + 1) * 1.5}"
+          sleep (retries + 1) * 1.5
           @recent_songs = @site.get_recently_played_list(chid)
         end
         retries += 1
