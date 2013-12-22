@@ -11,7 +11,7 @@ options = {
 }
 
 @optparser = OptionParser.new do |o|
-  o.banner = "Usage: terminal_player.rb [options] site channel"
+  o.banner = "Usage: terminal_player [options] site channel"
   o.separator ""
   o.separator "The `site` parameter can be one of: di, soma, or spotify."
   o.separator ""
