@@ -176,7 +176,6 @@ class TerminalPlayer
             write "giving up: can't get audioaddict info #{retries + 1}x"
             break
           end
-          write "sleeping #{(retries + 1) * 1.5}"
           sleep (retries + 1) * 1.5
           @recent_songs = @site.get_recently_played_list(chid)
         end
