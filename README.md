@@ -114,6 +114,7 @@ $
 ```
 c       - Display a channel list
 n       - Change to next track (Spotify mode)
+r       - Refresh display
 s       - Launch the Spotify player for the track/artist name
 S       - Launch a Google search for the track/artist name
 9       - Lower volume (not in Spotify mode)

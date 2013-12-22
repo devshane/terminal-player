@@ -11,6 +11,9 @@ require 'terminal_player/spotiphy'
 class TerminalPlayer
   def initialize(options)
     @last_log = ''
+    @last_di_fetch = 0
+    @recent_songs = []
+    @stop_updating = false
 
     @options = options
     if @options[:url]['di.fm']
@@ -46,10 +49,14 @@ class TerminalPlayer
         ch = str.chr
         case ch
         when 'c'
+          @stop_updating = true
           list_channels
-          update(Time.now, @site.songs)
+          @stop_updating = false
+          update(Time.now, @site.songs, true, true) unless @site.is_di_plus
         when 'n'
           @site.player.next if @site.is_spotify
+        when 'r'
+          update(Time.now, @site.songs, true, true)
         when 's'
           if @options[:spotify_search]
             s = cleanup(@site.songs.last)
@@ -62,7 +69,18 @@ class TerminalPlayer
         when ' ' # pause/resume
           @site.player.write ch
         end
-        sleep 0.1
+        sleep 0.2
+      end
+    end
+  end
+
+  def refresh_display
+    Thread.new do
+      loop do
+        unless @site.songs.nil?
+          update(Time.now, @site.songs, true, true)
+        end
+        sleep 1
       end
     end
   end
@@ -72,22 +90,39 @@ class TerminalPlayer
   end
 
   def play
+    refresh_display if @site.is_di_plus
     keypress_handler
     @site.play
   end
 
-  def update(time, songs)
-    unless @last_log == songs.last
-      @last_log = song = songs.last
-
-      song = "#{song} #{get_di_info}" if @site.is_di_plus
-
-      s = "#{time.strftime("%H:%M:%S")} [#{@site.name}/#{@site.current_channel}] #{song}"
-      print "\n#{s}\r"
-      unless @options[:play_history_path].empty?
-        PlayHistory.write @options[:play_history_path], s
+  def update(time, songs, force=false, is_refresh=false)
+    return if @stop_updating
+    @stop_updating = true
+    begin
+      if @last_log != songs.last || force
+        unless songs.last.nil?
+          @last_log = song = songs.last
+          cols = `tput cols`.to_i
+          preamble = "[#{@site.name}/#{@site.current_channel}]"
+          extras = @site.is_di_plus ? get_di_info : time.strftime('%H:%M:%S')
+          while (1 + preamble.length + extras.length + song.length) > cols
+            song = song[0..-2]
+          end
+          spaces = ' ' * (cols - song.length - preamble.length - extras.length - 1)
+          song = "#{song}#{spaces}#{extras}"
+          #print "#{is_refresh ? '' : "\n"}#{preamble} #{song}\r"
+          print "\n" unless is_refresh
+          print "#{preamble} #{song}\r"
+          unless force || @options[:play_history_path].empty?
+            PlayHistory.write @options[:play_history_path],
+                              "#{time.strftime("%H:%M:%S")} #{preamble} #{songs.last}"
+          end
+        end
       end
+    rescue => e
+      write "update error: #{e}"
     end
+    @stop_updating = false
   end
 
   def list_channels
@@ -99,12 +134,15 @@ class TerminalPlayer
     else
       puts `echo "#{chans}" | column`
     end
+    puts "\n"
   end
 
   private
 
   def get_di_info
     chid = 0
+    info = ''
+
     @channels ||= @site.get_channels
     @channels.each do |c|
       if c[:name] == @site.current_channel
@@ -113,12 +151,35 @@ class TerminalPlayer
       end
     end
     if chid > 0
-      sleep 2 # HACK!
-      songs = @site.get_recently_played_list(chid) if chid > 0
-      s = songs.first
-      song = "#{song} :: #{format_secs(s['duration'])} " \
-      "+#{s['votes']['up']} -#{s['votes']['down']}"
+      retries = 0
+      status = ""
+      if Time.now.to_i - @last_di_fetch > 60
+        @last_di_fetch = Time.now.to_i
+        @recent_songs = @site.get_recently_played_list(chid) if chid > 0
+        status = "[pl] "
+      end
+      loop do
+        s = @recent_songs.first
+        next if s.nil?
+        break if retries > 4
+        if s['track'][@site.songs.last]
+          info = " #{status}" \
+            "#{format_secs(Time.now.to_i - s['started'].to_i)} > " \
+            "#{format_secs(s['duration'])} : " \
+            "+#{"%-2d" % s['votes']['up']} -#{"%-2d" % s['votes']['down']}"
+          break
+        else
+          if retries >= 4
+            write "giving up: can't get audioaddict info #{retries + 1}x"
+            break
+          end
+          sleep retries + 1
+          @recent_songs = @site.get_recently_played_list(chid)
+        end
+        retries += 1
+      end
     end
+    info
   end
 
   def format_secs(seconds)
@@ -146,5 +207,9 @@ class TerminalPlayer
     s.gsub!(/ /, '+')
     s.gsub!(/\++/, '+')
     s
+  end
+
+  def write(message)
+    print "\n<terminal_player-debug> #{message}\r\n"
   end
 end

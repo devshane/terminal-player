@@ -69,12 +69,13 @@ class PlayerMessageObserver < Site::Observer
   @channels = []
 
   def update(time, message)
+    #write message
     if message['ICY']
       begin
         m = message.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-        song = m[/StreamTitle='(.*?)'/, 1]
+        song = m[/StreamTitle='(.*?)';/, 1]
       rescue => e
-        song = "error: #{e}"
+        write "error '#{e}' with ICY message: #{m}"
       end
       @site.songs << song
       @site.song_changed
@@ -87,6 +88,6 @@ class PlayerMessageObserver < Site::Observer
   end
 
   def write(message)
-    puts "\n#{Time.now.strftime("%H:%M:%S")} [#{@site.name}] #{message}\r"
+    print "\n<site-debug> #{message}\r"
   end
 end
