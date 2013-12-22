@@ -159,7 +159,7 @@ class TerminalPlayer
       if Time.now.to_i - @last_di_fetch > 60
         @last_di_fetch = Time.now.to_i
         @recent_songs = @site.get_recently_played_list(chid) if chid > 0
-        status = "[pl] "
+        status = "* "
       end
       loop do
         s = @recent_songs.first
@@ -173,7 +173,7 @@ class TerminalPlayer
           break
         else
           if retries >= 4
-            write "giving up: can't get audioaddict info #{retries + 1}x"
+            # might be a station break
             break
           end
           sleep (retries + 1) * 1.5
