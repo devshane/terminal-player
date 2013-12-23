@@ -165,7 +165,7 @@ class TerminalPlayer
         s = @recent_songs.first
         next if s.nil?
         break if retries > 4
-        if s['track'][@site.songs.last]
+        if s['track'][@site.songs.last.strip]
           info = " #{status}" \
             "#{format_secs(Time.now.to_i - s['started'].to_i)} > " \
             "#{format_secs(s['duration'])} : " \
