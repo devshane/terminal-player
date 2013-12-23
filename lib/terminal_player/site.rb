@@ -71,7 +71,6 @@ class PlayerMessageObserver < Site::Observer
   @channels = []
 
   def update(time, message)
-    #write message
     if message['ICY']
       begin
         m = message.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
