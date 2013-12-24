@@ -10,7 +10,9 @@ class SpotiphyPlayer
     @plaything = Plaything.new
     setup_session_callbacks
 
-    appkey = IO.read("./spotify_appkey.key", encoding: "BINARY")
+    # HACK not sure this is copacetic
+    path = File.expand_path File.dirname(__FILE__)
+    appkey = IO.read("#{path}/../../../spotify_appkey.key", encoding: "BINARY")
     config = Spotify::SessionConfig.new({
       api_version: Spotify::API_VERSION.to_i,
       application_key: appkey,
