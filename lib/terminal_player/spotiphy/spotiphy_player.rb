@@ -12,14 +12,15 @@ class SpotiphyPlayer
 
     # HACK not sure this is copacetic
     path = File.expand_path File.dirname(__FILE__)
-    appkey = IO.read("#{path}/../../../spotify_appkey.key", encoding: "BINARY")
+    path = "#{path}/../../../"
+    appkey = IO.read("#{path}spotify_appkey.key", encoding: "BINARY")
     config = Spotify::SessionConfig.new({
       api_version: Spotify::API_VERSION.to_i,
       application_key: appkey,
-      cache_location: ".spotify/",
-      settings_location: ".spotify/",
-      tracefile: "spotify_tracefile.txt",
-      user_agent: "spotify for ruby",
+      cache_location: "#{path}.spotify/",
+      settings_location: "#{path}.spotify/",
+      tracefile: "#{path}spotify_tracefile.txt",
+      user_agent: "terminal_player gem",
       callbacks: Spotify::SessionCallbacks.new($session_callbacks),
     })
     @session = create_session(config)
