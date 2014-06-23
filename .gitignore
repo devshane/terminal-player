@@ -18,8 +18,6 @@ _yardoc
 doc/
 
 .DS_Store
-.spotify/*
-spotify_tracefile.txt
 .vagrant/*
 
 tags

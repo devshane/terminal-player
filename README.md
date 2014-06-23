@@ -1,6 +1,8 @@
 # Terminal Player
 
-Terminal player is a bare-bones, terminal-based player for DI.fm, somafm.com, and Spotify. It's a thin wrapper around `mplayer` and `libspotify` and it outputs a single line of text for each song *without* using Curses. That's it. A two-line terminal is plenty of room:
+Terminal player is a bare-bones, terminal-based player for DI.fm and somafm.com. It's a thin wrapper 
+around `mplayer` and it outputs a single line of text for each song without using Curses. That's it. 
+A two-line terminal is plenty of room:
 
 ```
 16:28:34 [di/lounge] The Sura Quintet - Kept In Perspective
@@ -8,16 +10,6 @@ Terminal player is a bare-bones, terminal-based player for DI.fm, somafm.com, an
 ```
 
 Pull requests are encouraged.
-
-## Spotify Integration
-
-To use Spotify, you must have an account. Set these environment variables to your Spotify deets. In fish:
-```
-set -x SPOTIFY_USERNAME yourusername
-set -x SPOTIFY_PASSWORD yourpassword
-```
-
-You can search Spotify or Google for the currently playing track by pressing `s`. See the usage and keybind sections for more.
 
 ## Installation
 ```
@@ -36,24 +28,16 @@ $ gem install ./terminal_player-0.0.4.gem
 ```
 Usage: terminal_player.rb [options] site channel
 
-The `site` parameter can be one of: di, soma, or spotify.
+The `site` parameter can be di or soma.
 
 When `site` is di or soma, the channel parameter should be a valid channel.
-When `site` is spotify, the channel parameter should be a valid Spotify URI.
-
-Spotify requires two environment variables: SPOTIFY_USERNAME and SPOTIFY_PASSWORD.
-
 DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
 
-    -s, --spotify-search             Enable spotify URI searches
     -c, --cache CACHE_SIZE           Set the cache size (KB)
     -m, --cache-min CACHE_MIN        Set the minimum cache threshold (percent)
     -h, --help                       Display this message
         --play-history-path PATH     Log the play history to PATH
 ```
-
-Enabling `-s` or `--spotify-search` requires that you have the Spotify client installed. The option
-just means terminal player will try to `open` Spotify URIs. This probably only works on OS X.
 
 Examples:
 ```
@@ -63,17 +47,11 @@ $ set -x DI_FM_PREMIUM_ID abc123; terminal_player di breaks
 # DI public breaks channel
 $ terminal_player di breaks
 
-# Soma Secret Agent, enable spotify URI searches
-$ terminal_player -s soma secretagent130
+# Soma Secret Agent
+$ terminal_player soma secretagent130
 
 # Soma Groove Salad, log the song history to the desktop in a folder called played_songs
 $ terminal_player --play-history-path ~/Desktop/played_songs soma groovesalad
-
-# Spotify bitchin playlist
-$ terminal_player spotify spotify:user:whoknows:playlist:0AykzuRPoExXhCRlazt14O
-
-# Spotify track
-$ terminal_player spotify spotify:track:2CTXWl2vo9oLXZaaBhpw2p
 ```
 
 ## Channel lists
@@ -113,16 +91,12 @@ $
 
 ```
 c       - Display a channel list
-n       - Change to next track (Spotify mode)
 r       - Refresh display
-s       - Launch the Spotify player for the track/artist name
 S       - Launch a Google search for the track/artist name
-9       - Lower volume (not in Spotify mode)
-0       - Raise volume (not in Spotify mode)
-<space> - Pause (not in Spotify mode)
+9       - Lower volume
+0       - Raise volume
+<space> - Pause
 ```
-
-If you didn't specify `--spotify-search` on the command line, `s` will fall back to a Google search.
 
 ## Play logs
 

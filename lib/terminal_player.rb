@@ -6,7 +6,6 @@ require 'terminal_player/mplayer'
 require 'terminal_player/play_history'
 require 'terminal_player/di'
 require 'terminal_player/soma'
-require 'terminal_player/spotiphy'
 
 class TerminalPlayer
   def initialize(options)
@@ -20,8 +19,6 @@ class TerminalPlayer
       @site = DI.new(@options)
     elsif @options[:url]['somafm.com']
       @site = Soma.new(@options)
-    elsif @options[:url][':']
-      @site = Spotiphy.new(@options)
     else
       fail "no url"
     end
@@ -53,16 +50,9 @@ class TerminalPlayer
           list_channels
           @stop_updating = false
           update(Time.now, @site.songs, true, true) unless @site.is_di_plus
-        when 'n'
-          @site.player.next if @site.is_spotify
         when 'r'
           update(Time.now, @site.songs, true, true)
-        when 's'
-          if @options[:spotify_search]
-            s = cleanup(@site.songs.last)
-            `open "spotify:search:#{s}"`
-          end
-        when 'S'
+        when 's', 'S'
           google @site.songs.last
         when '9', '0' # volume
           @site.player.write ch if @site.is_mplayer?

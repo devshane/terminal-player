@@ -3,16 +3,16 @@ Gem::Specification.new do |gem|
   gem.email = ['shane@devshane.com']
   gem.homepage = 'https://github.com/devshane/terminal-player'
 
-  gem.summary = 'A minimalistic terminal-based player for di.fm, somafm.com, and Spotify.'
-  gem.description = 'Terminal player is a minimalistic terminal-based player for di.fm, somafm.com, and Spotify.'
+  gem.summary = 'A minimalistic terminal-based player for di.fm and somafm.com.'
+  gem.description = 'Terminal player is a minimalistic terminal-based player for di.fm and somafm.com.'
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = ['terminal_player']
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.test_files    = gem.files.grep(%r{^(spec)/})
 
   gem.name = 'terminal_player'
-  gem.version = '0.0.7'
-  gem.date = '2013-12-15'
+  gem.version = '0.0.8'
+  gem.date = '2014-06-23'
   gem.licenses = ['MIT']
 
   gem.require_paths = ['lib']
@@ -21,6 +21,4 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'rake', '~> 10.1', '>= 10.1.1'
   gem.add_runtime_dependency 'rspec', '~> 2.14', '>= 2.14.1'
-  gem.add_runtime_dependency 'spotify', '~> 12.5', '>= 12.5.3'
-  gem.add_runtime_dependency 'plaything', '~> 1.1', '>= 1.1.1'
 end
