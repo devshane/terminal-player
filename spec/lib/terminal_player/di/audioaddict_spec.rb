@@ -12,16 +12,15 @@ describe AudioAddict do
 
   it "returns a good song list" do
     songs = @dummy.get_recently_played_list(15) # 15 is breaks
-    songs.length.should be > 0
+    expect(songs.length).to be > 0
     s = songs[0]
-    s.should.respond_to? :channel_id
-    s['channel_id'].should be 15
+    expect(s['channel_id']).to eql 15
 
-    s.should.respond_to? :duration
-    s.should.respond_to? :length
-    s.should.respond_to? :started
-    s.should.respond_to? :title
-    s.should.respond_to? :track
-    s.should.respond_to? :votes
+    expect(s['duration']).not_to be nil
+    expect(s).to respond_to(:length)
+    expect(s['started']).not_to be nil
+    expect(s['title']).not_to be nil
+    expect(s['track']).not_to be nil
+    expect(s['votes']).not_to be nil
   end
 end
