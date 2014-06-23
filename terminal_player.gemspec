@@ -21,4 +21,6 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'rake', '~> 10.1', '>= 10.1.1'
   gem.add_runtime_dependency 'rspec', '~> 2.14', '>= 2.14.1'
+  gem.add_runtime_dependency 'guard', '~> 2.6', '>= 2.6.1'
+  gem.add_runtime_dependency 'guard-rspec', '~> 4.2', '>= 4.2.10'
 end
