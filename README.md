@@ -1,5 +1,7 @@
 # Terminal Player
 
+**This project is no longer maintained. You might be interested in https://github.com/devshane/somadic.**
+
 Terminal player is a bare-bones, terminal-based player for DI.fm and somafm.com. It's a thin wrapper 
 around `mplayer` and it outputs a single line of text for each song without using Curses. That's it. 
 A two-line terminal is plenty of room:
